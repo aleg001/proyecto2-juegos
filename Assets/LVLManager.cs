@@ -19,7 +19,7 @@ public class LVLManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             luz.enabled = luz.enabled ? false : true;
             //linterna.Play();
