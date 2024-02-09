@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Door
   - PaperToilet
+  - Plunger
+  - Atomizer
+  - Rags
   layers:
   - Default
   - TransparentFX

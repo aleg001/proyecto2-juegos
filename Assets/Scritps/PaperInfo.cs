@@ -26,11 +26,12 @@ public class PaperInfo : MonoBehaviour
     }
 
     private void OnTriggerStay(Collider other) {
-        if(other.gameObject.CompareTag("PaperToilet")){
+        if(other.gameObject.CompareTag("PaperToilet") || other.gameObject.CompareTag("Plunger") || other.gameObject.CompareTag("Atomizer") || other.gameObject.CompareTag("Rags")  ){
             if(Input.GetKey("e") && pickedObject == null){
                 other.GetComponent<Rigidbody>().useGravity = false;
                 other.GetComponent<Rigidbody>().isKinematic = true;
                 other.transform.position = handPoint.transform.position;
+                other.transform.localRotation = Quaternion.Euler(0, 90, 0);
                 other.gameObject.transform.SetParent(handPoint.gameObject.transform);
                 pickedObject = other.gameObject;
             }
