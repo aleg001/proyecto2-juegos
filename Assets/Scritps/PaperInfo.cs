@@ -8,12 +8,6 @@ public class PaperInfo : MonoBehaviour
     private GameObject pickedObject = null;  // Almacena el objeto actualmente recogido
     private Rigidbody pickedRigidbody = null; // Almacena el componente Rigidbody del objeto recogido para optimizar el acceso
 
-    // Start se llama antes de la primera actualización del frame
-    void Start()
-    {
-        // No se necesita implementar nada en Start en este caso
-    }
-
     // Update se llama una vez por frame
     void Update()
     {
