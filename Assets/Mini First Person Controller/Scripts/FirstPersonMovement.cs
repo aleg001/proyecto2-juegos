@@ -1,44 +1,45 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FirstPersonMovement : MonoBehaviour
 {
-    public float speed = 5;
+    public float speed = 5f;  // Velocidad normal de movimiento
 
     [Header("Running")]
-    public bool canRun = true;
-    public bool IsRunning { get; private set; }
-    public float runSpeed = 9;
-    public KeyCode runningKey = KeyCode.LeftShift;
+    public bool canRun = true;  // Define si el personaje puede correr
+    public bool IsRunning { get; private set; }  // Estado actual de si el personaje está corriendo
+    public float runSpeed = 9f;  // Velocidad al correr
+    public KeyCode runningKey = KeyCode.LeftShift;  // Tecla para activar el correr
 
-    Rigidbody rigidbody;
-    /// <summary> Functions to override movement speed. Will use the last added override. </summary>
+    private Rigidbody rb;  // Referencia al componente Rigidbody del personaje
+
+    /// <summary> Funciones que pueden sobrescribir la velocidad de movimiento. Usará la última añadida. </summary>
     public List<System.Func<float>> speedOverrides = new List<System.Func<float>>();
 
-
-
+    // Inicializa el componente Rigidbody al despertar
     void Awake()
     {
-        // Get the rigidbody on this.
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
+    // Actualiza la física del personaje cada frame fijo
     void FixedUpdate()
     {
-        // Update IsRunning from input.
+        // Actualiza si el personaje está corriendo según la entrada del usuario
         IsRunning = canRun && Input.GetKey(runningKey);
 
-        // Get targetMovingSpeed.
+        // Determina la velocidad de movimiento
         float targetMovingSpeed = IsRunning ? runSpeed : speed;
         if (speedOverrides.Count > 0)
         {
-            targetMovingSpeed = speedOverrides[speedOverrides.Count - 1]();
+            targetMovingSpeed = speedOverrides[speedOverrides.Count - 1]();  // Aplica la última sobrescritura de velocidad
         }
 
-        // Get targetVelocity from input.
-        Vector2 targetVelocity =new Vector2( Input.GetAxis("Horizontal") * targetMovingSpeed, Input.GetAxis("Vertical") * targetMovingSpeed);
+        // Obtiene la velocidad objetivo a partir de las entradas del jugador (horizontal y vertical)
+        Vector2 targetVelocity = new Vector2(Input.GetAxis("Horizontal") * targetMovingSpeed, 
+                                             Input.GetAxis("Vertical") * targetMovingSpeed);
 
-        // Apply movement.
-        rigidbody.velocity = transform.rotation * new Vector3(targetVelocity.x, rigidbody.velocity.y, targetVelocity.y);
+        // Aplica el movimiento, manteniendo la velocidad vertical del Rigidbody
+        rb.velocity = transform.rotation * new Vector3(targetVelocity.x, rb.velocity.y, targetVelocity.y);
     }
 }
