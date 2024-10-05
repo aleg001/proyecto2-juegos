@@ -4,25 +4,18 @@ using UnityEngine;
 
 public class LVLManager : MonoBehaviour
 {
-    //propiedades
-    // public Text tag_objeto;
     [SerializeField]
-    Light luz;
-    // AudioSource linterna;
+    private Light luz;  // Luz que será controlada
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+    // Update se llama una vez por frame
     void Update()
     {
+        // Si se presiona el botón derecho del ratón (mouse)
         if (Input.GetMouseButtonDown(1))
         {
-            luz.enabled = luz.enabled ? false : true;
-            //linterna.Play();
+            // Alterna el estado de la luz (encendido/apagado) de manera más eficiente
+            luz.enabled = !luz.enabled;
         }
     }
 }
