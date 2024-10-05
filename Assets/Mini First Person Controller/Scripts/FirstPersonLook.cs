@@ -1,38 +1,38 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class FirstPersonLook : MonoBehaviour
 {
     [SerializeField]
-    Transform character;
-    public float sensitivity = 2;
-    public float smoothing = 1.5f;
+    private Transform character;  // Referencia al personaje
+    public float sensitivity = 2f;  // Sensibilidad del ratón
+    public float smoothing = 1.5f;  // Suavizado del movimiento
 
-    Vector2 velocity;
-    Vector2 frameVelocity;
+    private Vector2 velocity;  // Velocidad acumulada del movimiento del ratón
+    private Vector2 frameVelocity;  // Velocidad calculada por frame
 
-
+    // Se llama al resetear el componente, asigna el personaje si no está establecido
     void Reset()
     {
-        // Get the character from the FirstPersonMovement in parents.
         character = GetComponentInParent<FirstPersonMovement>().transform;
     }
 
+    // Se bloquea el cursor al inicio para que no salga de la pantalla del juego
     void Start()
     {
-        // Lock the mouse cursor to the game screen.
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    // Actualiza la rotación del personaje y la cámara en cada frame
     void Update()
     {
-        // Get smooth velocity.
+        // Obtiene el movimiento del ratón y lo ajusta por la sensibilidad
         Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
-        Vector2 rawFrameVelocity = Vector2.Scale(mouseDelta, Vector2.one * sensitivity);
-        frameVelocity = Vector2.Lerp(frameVelocity, rawFrameVelocity, 1 / smoothing);
+        Vector2 rawFrameVelocity = mouseDelta * sensitivity;
+        frameVelocity = Vector2.Lerp(frameVelocity, rawFrameVelocity, Time.deltaTime * smoothing);  // Suaviza el movimiento
         velocity += frameVelocity;
-        velocity.y = Mathf.Clamp(velocity.y, -90, 90);
+        velocity.y = Mathf.Clamp(velocity.y, -90f, 90f);  // Limita la rotación vertical
 
-        // Rotate camera up-down and controller left-right from velocity.
+        // Aplica la rotación a la cámara (vertical) y al personaje (horizontal)
         transform.localRotation = Quaternion.AngleAxis(-velocity.y, Vector3.right);
         character.localRotation = Quaternion.AngleAxis(velocity.x, Vector3.up);
     }
