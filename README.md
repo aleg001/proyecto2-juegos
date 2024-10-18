@@ -10,10 +10,10 @@ Nosotros, como jugadores, tomamos el rol de una compañía de restauración de c
 
 ## **Equipo de Desarrollo** 👨‍💻🎨
 
-- **Creadores**: Rodrigo Barrera  
-- **Programadores**: Rodrigo Barrera y Alejandro Gómez  
+- **Creadores**: María Isabel Solano y Rodrigo Barrera
+- **Concepto original**: María Isabel Solano y Rodrigo Barrera 💡
+- **Programadores Fase II**: Rodrigo Barrera y Alejandro Gómez  
 - **Música**: Alejandro Gómez 🎶  
-- **Idea Original**: Rodrigo Barrera 💡
 
 ---
 
